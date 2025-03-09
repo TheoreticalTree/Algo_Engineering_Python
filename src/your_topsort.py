@@ -1,27 +1,24 @@
 from src.graph import Graph
 
-class BasicTopsort:
+class YourTopsort:
     def __init__(self, graph):
-        __g = graph
+        self.__g = graph
 
     def run(self):
         # TODO: Implement the algorithm
         print("You should implement the algorithm")
 
     def has_run(self):
-        return self.__has_run
+        # TODO: Implement the algorithm
+        print("You should implement the algorithm")
 
     def get_result(self):
-        if self.__has_run:
-            return self.__result
-        else:
-            raise RuntimeError("Tried to access result before algorithm was run")
+        # TODO: Implement the algorithm
+        print("You should implement the algorithm")
 
     def get_k(self):
-        if self.__has_run:
-            return self.__k
-        else:
-            raise RuntimeError("Tried to access result before algorithm was run")
+        # TODO: Implement the algorithm
+        print("You should implement the algorithm")
 
     __g: Graph
 

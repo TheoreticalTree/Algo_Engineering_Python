@@ -1,0 +1,65 @@
+import unittest
+
+from src.your_topsort import *
+from src.basic_topsort import *
+from src.graph import *
+
+
+class TopsortTest(unittest.TestCase):
+    def test_line_test(self):
+        g: Graph = Graph(n=3, directed=True)
+        g.add_edge(Edge(2, 1))
+        g.add_edge(Edge(1, 0))
+
+        basic_topsort: BasicTopsort = BasicTopsort(g)
+        basic_topsort.run()
+
+        self.assertEqual(basic_topsort.get_k(), 3)
+        self.assertEqual(basic_topsort.get_result()[0], 3)
+        self.assertEqual(basic_topsort.get_result()[1], 2)
+        self.assertEqual(basic_topsort.get_result()[2], 1)
+
+    def test_circle_test(self):
+        g: Graph = Graph(n=3, directed=True)
+        g.add_edge(Edge(2, 1))
+        g.add_edge(Edge(1, 0))
+        g.add_edge(Edge(0, 2))
+
+        basic_topsort: BasicTopsort = BasicTopsort(g)
+        basic_topsort.run()
+
+        self.assertEqual(basic_topsort.get_k(), -1)
+        self.assertEqual(len(basic_topsort.get_result()), 0)
+
+    def test_several_predecessors(self):
+        g: Graph = Graph(n=7, directed=True)
+        g.add_edge(Edge(0, 1))
+        g.add_edge(Edge(0, 2))
+        g.add_edge(Edge(1, 2))
+        g.add_edge(Edge(1, 3))
+        g.add_edge(Edge(1, 4))
+        g.add_edge(Edge(1, 5))
+        g.add_edge(Edge(2, 3))
+        g.add_edge(Edge(2, 4))
+        g.add_edge(Edge(2, 6))
+        g.add_edge(Edge(3, 6))
+        g.add_edge(Edge(5, 6))
+        g.add_edge(Edge(6, 4))
+
+        basic_topsort: BasicTopsort = BasicTopsort(g)
+        basic_topsort.run()
+
+        result: list[int] = basic_topsort.get_result()
+
+        self.assertEqual(basic_topsort.get_k(), 6)
+        self.assertEqual(result[0], 1)
+        self.assertEqual(result[1], 2)
+        self.assertEqual(result[2], 3)
+        self.assertEqual(result[3], 4)
+        self.assertEqual(result[4], 6)
+        self.assertEqual(result[5], 3)
+        self.assertEqual(result[6], 5)
+
+
+if __name__ == '__main__':
+    unittest.main()

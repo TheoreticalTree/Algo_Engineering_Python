@@ -2,7 +2,11 @@ from src.graph import Graph
 
 class BasicTopsort:
     def __init__(self, graph):
-        __g = graph
+        self.__g: Graph = graph
+
+        self.__has_run: bool = False
+        self.__k: int = 0
+        self.__result: list[int] = []
 
     def run(self):
         n: int = self.__g.number_nodes()
@@ -53,9 +57,3 @@ class BasicTopsort:
             return self.__k
         else:
             raise RuntimeError("Tried to access result before algorithm was run")
-
-    __g: Graph
-
-    __has_run: bool = False
-    __k: int = 0
-    __result: list[int] = []

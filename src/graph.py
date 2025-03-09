@@ -1,5 +1,5 @@
 class Edge:
-    def __init__(self, v: int, w: int, weight: float):
+    def __init__(self, v: int, w: int, weight: float = 1.0):
         self.v = v
         self.w = w
         self.weight = weight
@@ -10,6 +10,27 @@ class Edge:
 
 class Graph:
     def __init__(self, n: int = 0, edges: list[Edge] = None, directed: bool = False, weighted: bool = False):
+        self.__directed: bool
+        self.__weighted: bool
+        self.__n: int = 0
+        self.__m: int = 0
+
+        self.__above_max_node_id: int
+
+        # Stores currently dead vertices so holes in vertex ids can be fixed when new vertices are inserted
+        self.__open_id_slots: list[int] = []
+
+        # Stores outgoing edges by vertex and the position of where their other side is stored
+        self.__edges_out: list[list[Edge]] = []
+        self.__back_pos_out: list[list[int]] = []
+
+        # Stores incoming edges by vertex and the position of where their other side is stored
+        self.__edges_in: list[list[Edge]] = []
+        self.__back_pos_in: list[list[int]] = []
+
+        # stores of a vertex currently exists
+        self.__alive: list[bool] = []
+
         if edges == None:
             self.__n = n
             self.__above_max_node_id = n
@@ -208,24 +229,3 @@ class Graph:
 
     def number_edges(self) -> int:
         return self.__m
-
-    __directed: bool
-    __weighted:bool
-    __n: int = 0
-    __m: int = 0
-
-    __above_max_node_id: int
-
-    # Stores currently dead vertices so holes in vertex ids can be fixed when new vertices are inserted
-    __open_id_slots: list[int] = []
-
-    # Stores outgoing edges by vertex and the position of where their other side is stored
-    __edges_out: list[list[Edge]] = []
-    __back_pos_out: list[list[int]] = []
-
-    # Stores incoming edges by vertex and the position of where their other side is stored
-    __edges_in: list[list[Edge]] = []
-    __back_pos_in: list[list[int]] = []
-
-    # stores of a vertex currently exists
-    __alive: list[bool] = []
