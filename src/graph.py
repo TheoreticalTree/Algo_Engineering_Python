@@ -4,10 +4,6 @@ class Edge:
         self.w = w
         self.weight = weight
 
-    v: int
-    w: int
-    weight: bool
-
 class Graph:
     def __init__(self, n: int = 0, edges: list[Edge] = None, directed: bool = False, weighted: bool = False):
         self.__directed: bool
