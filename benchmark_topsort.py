@@ -21,6 +21,22 @@ def run_benchmark_comparison(file: str) -> str:
     return file + "," + str(n) + "," + str(m) + "," + str(total_time_ms) + "\n"
 
 
+def run_benchmark_yours(file: str) -> str:
+    graph: Graph = Graph(edges=read_dimacs_format(file), directed=True)
+
+    n: int = graph.number_nodes()
+    m: int = graph.number_edges()
+
+    start_time = time.time()
+    your_topsort: YourTopsort = YourTopsort(graph)
+    your_topsort.run()
+    end_time = time.time()
+
+    total_time_ms = (end_time - start_time) * 1000
+
+    return file + "," + str(n) + "," + str(m) + "," + str(total_time_ms) + "\n"
+
+
 if __name__ == "__main__":
     instances = [
         "ValidInstance1.txt",
@@ -34,6 +50,9 @@ if __name__ == "__main__":
 
     for instance in instances:
         output += "Comparison," + run_benchmark_comparison("data/topsort/" + instance)
+
+    for instance in instances:
+        output += "Yours," + run_benchmark_yours("data/topsort/" + instance)
 
     print(output)
 
