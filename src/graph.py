@@ -63,7 +63,7 @@ class Graph:
             self.__alive = [True] * self.__n
 
             for e in edges:
-                self.addEdge(e)
+                self.add_edge(e)
 
 
     def add_edge(self, e: Edge) -> None:

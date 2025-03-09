@@ -21,3 +21,4 @@ def write_edge_list_to_file(file_name: str, instance_name: str, edge_list: list[
         for e in edge_list:
             file.write(str(e.v) + " " + str(e.w) + " " + str(e.weight) + "\n")
 
+
