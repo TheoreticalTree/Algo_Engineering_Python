@@ -4,8 +4,15 @@ class Edge:
         self.w = w
         self.weight = weight
 
+
 class Graph:
-    def __init__(self, n: int = 0, edges: list[Edge] = None, directed: bool = False, weighted: bool = False):
+    def __init__(
+        self,
+        n: int = 0,
+        edges: list[Edge] = None,
+        directed: bool = False,
+        weighted: bool = False,
+    ):
         self.__directed: bool
         self.__weighted: bool
         self.__n: int = 0
@@ -27,7 +34,7 @@ class Graph:
         # stores of a vertex currently exists
         self.__alive: list[bool] = []
 
-        if edges == None:
+        if edges is None:
             self.__n = n
             self.__above_max_node_id = n
             self.__m = 0
@@ -65,11 +72,10 @@ class Graph:
             for e in edges:
                 self.add_edge(e)
 
-
     def add_edge(self, e: Edge) -> None:
         self.__m += 1
 
-        if (self.__directed):
+        if self.__directed:
             self.__edges_out[e.v].append(e)
             self.__edges_in[e.w].append(e)
             self.__back_pos_out[e.v].append(len(self.__edges_in[e.w]) - 1)
@@ -89,11 +95,16 @@ class Graph:
                     back_pos = self.__back_pos_out[v][i]
                     self.__edges_out[v][i] = self.__edges_out[v][-1]
                     self.__back_pos_out[v][i] = self.__back_pos_out[v][-1]
-                    self.__back_pos_in[self.__edges_out[v][i].w][self.__back_pos_out[v][i]] = i
+                    self.__back_pos_in[self.__edges_out[v][i].w][
+                        self.__back_pos_out[v][i]
+                    ] = i
 
-                    self.__edges_in[w][back_pos] = self.__edges_in[w][-1]
-                    self.__back_pos_in[w][back_pos] = self.__back_pos_in[w][-1]
-                    self.__back_pos_out[self.__edges_in[w][back_pos].v][self.__back_pos_in[w][back_pos]] = back_pos
+                    if back_pos != len(self.__edges_in[w]) - 1:
+                        self.__edges_in[w][back_pos] = self.__edges_in[w][-1]
+                        self.__back_pos_in[w][back_pos] = self.__back_pos_in[w][-1]
+                        self.__back_pos_out[self.__edges_in[w][back_pos].v][
+                            self.__back_pos_in[w][back_pos]
+                        ] = back_pos
 
                     self.__edges_out[v].pop()
                     self.__back_pos_out[v].pop()
@@ -103,11 +114,16 @@ class Graph:
                     back_pos = self.__back_pos_out[v][i]
                     self.__edges_out[v][i] = self.__edges_out[v][-1]
                     self.__back_pos_out[v][i] = self.__back_pos_out[v][-1]
-                    self.__back_pos_out[self.__edges_out[v][i].w][self.__back_pos_out[v][i]] = i
+                    self.__back_pos_out[self.__edges_out[v][i].w][
+                        self.__back_pos_out[v][i]
+                    ] = i
 
-                    self.__edges_out[w][back_pos] = self.__edges_out[w][-1]
-                    self.__back_pos_out[w][back_pos] = self.__back_pos_out[w][-1]
-                    self.__back_pos_out[self.__edges_out[w][back_pos].w][self.__back_pos_out[w][back_pos]] = back_pos
+                    if back_pos != len(self.__edges_out[w]) - 1:
+                        self.__edges_out[w][back_pos] = self.__edges_out[w][-1]
+                        self.__back_pos_out[w][back_pos] = self.__back_pos_out[w][-1]
+                        self.__back_pos_out[self.__edges_out[w][back_pos].w][
+                            self.__back_pos_out[w][back_pos]
+                        ] = back_pos
 
                     self.__edges_out[v].pop()
                     self.__back_pos_out[v].pop()
@@ -119,8 +135,15 @@ class Graph:
         raise Exception("Tried to delete an edge that does not exist")
 
     def has_edge(self, v: int, w: int) -> bool:
-        if (v >= self.__above_max_node_id) or (w >= self.__above_max_node_id) or not self.__alive[v] or not self.__alive[w]:
-            raise Exception("Checked if an edge exists for which at least one endpoint does not exist")
+        if (
+            (v >= self.__above_max_node_id)
+            or (w >= self.__above_max_node_id)
+            or not self.__alive[v]
+            or not self.__alive[w]
+        ):
+            raise Exception(
+                "Checked if an edge exists for which at least one endpoint does not exist"
+            )
 
         for e in self.__edges_out[v]:
             if e.w == w:
