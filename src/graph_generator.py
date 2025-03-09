@@ -1,29 +1,33 @@
-from decorator import append
-
 from src.graph import Edge, Graph
 import random
 
-def create_valid_topsort_instance(n: int, target_dge_number: int, seed: int) -> list[Edge]:
+
+def create_valid_topsort_instance(
+    n: int, target_dge_number: int, seed: int
+) -> list[Edge]:
     random.seed = seed
 
     max_edge_number = n * (n - 1) / 2
 
     edge_ratio: float = float(target_dge_number) / float(max_edge_number)
 
-    vertex_alias: list[int] = list(range(0,n))
+    vertex_alias: list[int] = list(range(0, n))
     random.shuffle(vertex_alias)
 
     edge_list: list[Edge] = []
 
     for v in range(n):
         for w in range(v + 1, n):
-            chance: float = random.uniform(0,1)
+            chance: float = random.uniform(0, 1)
             if chance <= edge_ratio:
                 edge_list.append(Edge(vertex_alias[v], vertex_alias[w], 1.0))
 
     return edge_list
 
-def create_invalid_topsort_instance(n: int, target_dge_number: int, seed: int) -> list[Edge]:
+
+def create_invalid_topsort_instance(
+    n: int, target_dge_number: int, seed: int
+) -> list[Edge]:
     random.seed = seed
 
     max_edge_number = n * (n - 1)
