@@ -11,13 +11,13 @@ class TopsortTest(unittest.TestCase):
         g.add_edge(Edge(2, 1))
         g.add_edge(Edge(1, 0))
 
-        basic_topsort: BasicTopsort = BasicTopsort(g)
-        basic_topsort.run()
+        your_topsort: YourTopsort = YourTopsort(g)
+        your_topsort.run()
 
-        self.assertEqual(basic_topsort.get_k(), 3)
-        self.assertEqual(basic_topsort.get_result()[0], 3)
-        self.assertEqual(basic_topsort.get_result()[1], 2)
-        self.assertEqual(basic_topsort.get_result()[2], 1)
+        self.assertEqual(your_topsort.get_k(), 3)
+        self.assertEqual(your_topsort.get_result()[0], 3)
+        self.assertEqual(your_topsort.get_result()[1], 2)
+        self.assertEqual(your_topsort.get_result()[2], 1)
 
     def test_circle_test(self):
         g: Graph = Graph(n=3, directed=True)
@@ -25,11 +25,11 @@ class TopsortTest(unittest.TestCase):
         g.add_edge(Edge(1, 0))
         g.add_edge(Edge(0, 2))
 
-        basic_topsort: BasicTopsort = BasicTopsort(g)
-        basic_topsort.run()
+        your_topsort: YourTopsort = YourTopsort(g)
+        your_topsort.run()
 
-        self.assertEqual(basic_topsort.get_k(), -1)
-        self.assertEqual(len(basic_topsort.get_result()), 0)
+        self.assertEqual(your_topsort.get_k(), -1)
+        self.assertEqual(len(your_topsort.get_result()), 0)
 
     def test_several_predecessors(self):
         g: Graph = Graph(n=7, directed=True)
@@ -46,12 +46,12 @@ class TopsortTest(unittest.TestCase):
         g.add_edge(Edge(5, 6))
         g.add_edge(Edge(6, 4))
 
-        basic_topsort: BasicTopsort = BasicTopsort(g)
-        basic_topsort.run()
+        your_topsort: YourTopsort = YourTopsort(g)
+        your_topsort.run()
 
-        result: list[int] = basic_topsort.get_result()
+        result: list[int] = your_topsort.get_result()
 
-        self.assertEqual(basic_topsort.get_k(), 6)
+        self.assertEqual(your_topsort.get_k(), 6)
         self.assertEqual(result[0], 1)
         self.assertEqual(result[1], 2)
         self.assertEqual(result[2], 3)
