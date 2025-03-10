@@ -87,18 +87,18 @@ def create_valid_mst_instance(
                     )
                 )
 
-                rep_v: int = representatives[vertex_alias[v]]
-                rep_w: int = representatives[vertex_alias[w]]
+                rep_v: int = representatives[v]
+                rep_w: int = representatives[w]
 
                 if rep_v != rep_w:
                     if len(components[rep_v]) < len(components[rep_w]):
                         rep_v, rep_w = rep_w, rep_v
 
-                for x in components[rep_w]:
-                    representatives[x] = rep_v
-                    components[rep_v].append(x)
+                    for x in components[rep_w]:
+                        representatives[x] = rep_v
+                        components[rep_v].append(x)
 
-                components[rep_w].clear()
+                    components[rep_w].clear()
 
     for v in range(1, n):
         if components[0] != components[v]:
@@ -110,8 +110,8 @@ def create_valid_mst_instance(
                 )
             )
 
-            rep_v: int = representatives[vertex_alias[v]]
-            rep_w: int = representatives[vertex_alias[0]]
+            rep_v: int = representatives[v]
+            rep_w: int = representatives[0]
 
             if rep_v != rep_w:
                 if len(components[rep_v]) < len(components[rep_w]):
