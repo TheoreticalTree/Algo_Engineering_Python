@@ -34,7 +34,7 @@ if __name__ == "__main__":
             2000 * i, 20000 * i, 100.0, 42
         )
         write_edge_list_to_file(
-            folder_path + "ValidInstance" + str(i) + "txt",
+            folder_path + "/ValidInstance" + str(i) + ".txt",
             "ValidInstance" + str(i) + ".txt",
             edge_list,
         )
