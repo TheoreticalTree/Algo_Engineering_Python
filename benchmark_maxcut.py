@@ -58,8 +58,8 @@ if __name__ == "__main__":
         output += "Comparison[10]," + run_benchmark_comparison("data/maxcut/" + instance, 10)
 
 
-    #for instance in instances:
-    #    output += "Yours," + run_benchmark_yours("data/maxcut/" + instance)
+    for instance in instances:
+        output += "Yours," + run_benchmark_yours("data/maxcut/" + instance)
 
     print(output)
 
