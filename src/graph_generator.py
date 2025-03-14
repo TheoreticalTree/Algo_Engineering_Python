@@ -124,3 +124,26 @@ def create_valid_mst_instance(
                 components[rep_w].clear()
 
     return edge_list
+
+def create_maxcut_instance(
+    n: int, target_edge_number: int, maximum_weight: float, seed: int
+):
+    max_edge_number = n * (n - 1) / 2
+
+    edge_ratio: float = float(target_edge_number) / float(max_edge_number)
+
+    edge_list: list[Edge] = []
+
+    for v in range(n):
+        for w in range(v + 1, n):
+            chance: float = random.uniform(0, 1)
+            if chance <= edge_ratio:
+                edge_list.append(
+                    Edge(
+                        v,
+                        w,
+                        random.uniform(-maximum_weight, maximum_weight),
+                    )
+                )
+
+    return edge_list
